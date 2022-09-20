@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    environment:
+      - RABBITMQ_DEFAULT_USER=teixeira
+      - RABBITMQ_DEFAULT_PASS=teixeira
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  database:
+    image: 'mongo:latest'
+    container_name: 'mongo'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=teixeira
+      - MONGO_INITDB_ROOT_PASSWORD=teixeira
+      - MONGO_INITDB_DATABASE=teixeira
+    ports:
+      - 27017:27017

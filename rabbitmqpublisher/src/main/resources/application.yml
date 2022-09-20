@@ -1,0 +1,7 @@
+
+spring:
+  rabbitmq:
+    username: teixeira
+    password: teixeira
+    host: localhost
+    port: 5672

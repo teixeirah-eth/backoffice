@@ -1,5 +1,6 @@
-package dev.gustavoteixeira.backoffice;
+package dev.gustavoteixeira.backoffice.adapter.primary.messaging;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -9,9 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class RabbitMQConfig {
 
     private static final String MY_QUEUE = "MyQueue";
+    private final RegistroListenerImpl registroListener;
 
     @Bean
     Queue myQueue() {
@@ -31,7 +34,7 @@ public class RabbitMQConfig {
         var simpleMessageListenerContainer = new SimpleMessageListenerContainer();
         simpleMessageListenerContainer.setConnectionFactory(connectionFactory());
         simpleMessageListenerContainer.setQueues(myQueue());
-        simpleMessageListenerContainer.setMessageListener(new RegistroListener());
+        simpleMessageListenerContainer.setMessageListener(registroListener);
         return simpleMessageListenerContainer;
     }
 
